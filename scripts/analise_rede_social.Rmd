@@ -1,0 +1,83 @@
+Pequeno exemplo sobre Análise de Redes Sociais
+========================================================
+
+O objetivo deste documento é exemplificar o cálculo de atributos de redes sociais. Os exemplos foram implementados utilizando a linguagem de programação *R* e o pacote *igraph* (http://igraph.org/r/doc/).
+
+```{r}
+library(igraph)
+relacoes <- read.csv('../data//relacoes.csv', sep=';')
+g <- graph.data.frame(relacoes, directed=TRUE)
+```
+
+O grafo didático criado possui a seguinte estrutura:
+
+```{r fig.width=7, fig.height=6}
+plot(g, layout=layout.kamada.kawai, edge.width=E(g)$weight, edge.color="black")
+```
+
+````{r}
+qtd_vertice <- vcount(g)
+qtd_vertice
+qtd_aresta <- ecount(g)
+qtd_aresta
+is.connected(g)
+````
+
+O grafo possui `r qtd_vertice` nodos, `r qtd_aresta` arestas e não é conectado.
+
+O _longest path_ do grafo e os nodos que estão mais longe entre si são apresentados abaixo:
+
+````{r}
+diam <- diameter(g)
+diam
+nodes <- farthest.nodes(g)
+nodes
+V(g)[nodes[1]]
+V(g)[nodes[2]]
+````
+
+Um atributo utilizado para medir a eficiência do tráfego de informação de uma rede é o _average path length_.
+_average path length_ é definido como o número médio de passos entre os menores caminhos para todos os pares
+de nodos possíveis na rede. Quanto menor este número, maior é a eficiência do tráfego de informação na rede.
+
+Podemos calcular o _average path length_ de duas formas:
+
+* considerando apenas o comprimento dos caminhos existentes:
+
+````{r}  
+aver_path <- average.path.length(g, directed=TRUE, unconnected=TRUE)
+aver_path
+````
+
+* considerando também os caminhos faltantes. Neste caso, considera-se o tamanho de um caminho faltante como sendo _vcount(graph)_. 
+
+````{r}  
+aver_path <- average.path.length(g, directed=TRUE, unconnected=FALSE)
+aver_path
+````
+
+O número de seguidores (in-degree), o número de seguidos (out-degree) e o número de conexões de uma pessoa podem ser facilmente calculados da seguinte forma:
+
+````{r}
+degree(g, mode="in")
+degree(g, mode="out")
+degree(g, mode="all")
+````
+
+Betweenness is a centrality measure of a vertex within a graph (there is also edge betweenness, which is not discussed here). Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes. It was introduced as a measure for quantifying the control of a human on the communication between other humans in a social network by Linton Freeman[16] In his conception, vertices that have a high probability to occur on a randomly chosen shortest path between two randomly chosen vertices have a high betweenness.
+
+````{r}
+betweenness(g, directed=TRUE)
+````
+
+
+A _reciprocity_ de um usuário é calculado como $R(x) = \frac{|Out(x) \in In(x)|}{|Out(x)|}$ onde $Out(x)$ é o conjunto de usuários que o usuário $x$ segue e $In(x)$ é o conjunto de usuários que segue $x$. _Reciprocity_ mede a probabilidade de um usuário ser seguido por usuários que ele segue.
+
+````{r}
+reciprocity(g)
+````
+
+A _assortativity_ de um nodo é definido como a razão entre o (in/out) degree e a média do (in/out) degree dos seus vizinhos. Podemos calcular a _assortativity_ para quatro tipos de degree-degree correlação (i.e., in-in, in-out, out-in e out-out).
+
+
+*falta pagerank e hits*
