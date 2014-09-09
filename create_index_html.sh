@@ -9,7 +9,11 @@ done
 
 echo "</body></html>" >> index.html
 
+git add .
+git commit -m "Atualizando pagina index"
+git push origin master
 git checkout gh-pages
-git add index.html
+git add .
 git commit -m "Atualizando pagina index"
 git push origin gh-pages
+git checkout master
