@@ -1,13 +1,14 @@
-Pequeno exemplo sobre Análise de Redes Sociais
+Pequeno exemplo sobre Análise de Redes Sociais (evolução 1)
 ========================================================
 
 O objetivo deste documento é exemplificar o cálculo de atributos de redes sociais. Os exemplos foram implementados utilizando a linguagem de programação *R* e o pacote *igraph* (http://igraph.org/r/doc/).
 
 ```{r}
 library(igraph)
-relacoes <- read.csv('../data//relacoes.csv', sep=';')
+relacoes <- read.csv('../data//relacoes_evol1.csv', sep=';')
 g <- graph.data.frame(relacoes, directed=TRUE)
 ```
+
 
 O grafo didático criado possui a seguinte estrutura:
 

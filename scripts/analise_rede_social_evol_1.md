@@ -1,4 +1,4 @@
-Pequeno exemplo sobre Análise de Redes Sociais
+Pequeno exemplo sobre Análise de Redes Sociais (evolução 1)
 ========================================================
 
 O objetivo deste documento é exemplificar o cálculo de atributos de redes sociais. Os exemplos foram implementados utilizando a linguagem de programação *R* e o pacote *igraph* (http://igraph.org/r/doc/).
@@ -6,9 +6,10 @@ O objetivo deste documento é exemplificar o cálculo de atributos de redes soci
 
 ```r
 library(igraph)
-relacoes <- read.csv("../data//relacoes.csv", sep = ";")
+relacoes <- read.csv("../data//relacoes_evol1.csv", sep = ";")
 g <- graph.data.frame(relacoes, directed = TRUE)
 ```
+
 
 
 O grafo didático criado possui a seguinte estrutura:
@@ -37,7 +38,7 @@ qtd_aresta
 ```
 
 ```
-## [1] 19
+## [1] 21
 ```
 
 ```r
@@ -45,11 +46,11 @@ is.connected(g)
 ```
 
 ```
-## [1] FALSE
+## [1] TRUE
 ```
 
 
-O grafo possui 16 nodos, 19 arestas e não é conectado.
+O grafo possui 16 nodos, 21 arestas e não é conectado.
 
 O _longest path_ do grafo e os nodos que estão mais longe entre si são apresentados abaixo:
 
@@ -106,7 +107,7 @@ aver_path
 ```
 
 ```
-## [1] 1.37
+## [1] 1.698
 ```
 
 
@@ -119,7 +120,7 @@ aver_path
 ```
 
 ```
-## [1] 14.35
+## [1] 13.44
 ```
 
 
@@ -134,7 +135,7 @@ degree(g, mode = "in")
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
 ##         2         0         0         0         1         1         0 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-##         2         0         1         0         3         4         1 
+##         3         0         1         0         3         5         1 
 ##     ronie    sidney 
 ##         3         1
 ```
@@ -147,7 +148,7 @@ degree(g, mode = "out")
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
 ##         1         2         2         1         1         2         2 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-##         2         1         1         3         1         0         0 
+##         2         1         1         3         3         0         0 
 ##     ronie    sidney 
 ##         0         0
 ```
@@ -160,7 +161,7 @@ degree(g, mode = "all")
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
 ##         3         2         2         1         2         3         2 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-##         4         1         2         3         4         4         1 
+##         5         1         2         3         6         5         1 
 ##     ronie    sidney 
 ##         3         1
 ```
@@ -202,7 +203,7 @@ reciprocity(g)
 ```
 
 ```
-## [1] 0.1053
+## [1] 0.09524
 ```
 
 
@@ -214,7 +215,7 @@ assortativity.degree(g)
 ```
 
 ```
-## [1] -0.257
+## [1] -0.2759
 ```
 
 
@@ -228,11 +229,11 @@ authority_values
 
 ```
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
-## 6.180e-01 8.804e-17 8.804e-17 4.402e-17 2.060e-16 0.000e+00 8.804e-17 
+## 4.386e-01 1.435e-17 1.435e-17 7.175e-18 0.000e+00 2.566e-01 1.435e-17 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-## 6.852e-16 4.402e-17 5.547e-16 1.334e-16 5.710e-16 1.000e+00 2.610e-16 
+## 4.266e-01 7.175e-18 1.050e-01 3.176e-17 0.000e+00 1.000e+00 0.000e+00 
 ##     ronie    sidney 
-## 1.044e-15 3.263e-16
+## 1.573e-01 2.828e-02
 ```
 
 ```r
@@ -249,8 +250,8 @@ which.min(authority_values)
 ```
 
 ```
-## maria 
-##     6
+## carlos 
+##      5
 ```
 
 ```r
@@ -260,11 +261,11 @@ hub_values
 
 ```
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
-## 6.180e-01 1.000e+00 1.000e+00 6.180e-01 8.219e-17 1.745e-16 1.283e-16 
+## 5.941e-01 8.547e-01 8.547e-01 5.941e-01 0.000e+00 0.000e+00 0.000e+00 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-## 9.921e-16 8.998e-16 4.903e-16 1.938e-15 0.000e+00 2.062e-16 5.154e-17 
+## 1.102e-01 9.343e-02 2.535e-01 4.093e-01 1.000e+00 1.087e-17 0.000e+00 
 ##     ronie    sidney 
-## 9.412e-17 5.154e-17
+## 3.882e-17 0.000e+00
 ```
 
 ```r
@@ -272,8 +273,8 @@ which.max(hub_values)
 ```
 
 ```
-## cecil 
-##     2
+## antonio 
+##      12
 ```
 
 ```r
@@ -281,8 +282,8 @@ which.min(hub_values)
 ```
 
 ```
-## antonio 
-##      12
+## carlos 
+##      5
 ```
 
 
@@ -296,11 +297,11 @@ page_rank_values
 
 ```
 ##       bob     cecil     david esmeralda    carlos     maria      joao 
-##   0.05229   0.02827   0.02827   0.02827   0.04028   0.14341   0.02827 
+##   0.05696   0.03079   0.03079   0.03079   0.04388   0.06115   0.03079 
 ##  marcello      kuma    marcel  fabricio   antonio     alice      jose 
-##   0.06711   0.02827   0.03627   0.02827   0.13546   0.12076   0.08921 
+##   0.10347   0.03079   0.03951   0.03079   0.10716   0.16192   0.05678 
 ##     ronie    sidney 
-##   0.08882   0.05679
+##   0.10966   0.07476
 ```
 
 ```r
@@ -308,8 +309,8 @@ which.max(page_rank_values)
 ```
 
 ```
-## maria 
-##     6
+## alice 
+##    13
 ```
 
 ```r
@@ -333,7 +334,7 @@ quantidade_clusters
 ```
 
 ```
-## [1] 3
+## [1] 1
 ```
 
 
