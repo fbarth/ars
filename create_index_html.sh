@@ -13,7 +13,6 @@ git add .
 git commit -m "Atualizando pagina index"
 git push origin master
 git checkout gh-pages
-git add .
-git commit -m "Atualizando pagina index"
+git merge master
 git push origin gh-pages
 git checkout master
