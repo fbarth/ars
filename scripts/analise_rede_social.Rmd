@@ -64,9 +64,7 @@ degree(g, mode="out")
 degree(g, mode="all")
 ````
 
-Betweenness is a centrality measure of a vertex within a graph (there is also edge betweenness, which is not discussed here). Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes. It was introduced as a measure for quantifying the control of a human on the communication between other humans in a social network by Linton Freeman[16] In his conception, vertices that have a high probability to occur on a randomly chosen shortest path between two randomly chosen vertices have a high betweenness.
-
-Betweenness centrality is an indicator of a node's centrality in a network. It is equal to the number of shortest paths from all vertices to all others that pass through that node.  Betweenness centrality is a more useful measure (than just connectivity) of both the load and importance of a node.
+_Betweenness centrality_ é uma medida que quantifica a centralidade de um vértice (nodo) em um grafo. _Betweeness centrality_ calcula o n'mero de vezes que um nodo atua como ponte no menor caminho entre outros dois nodos. Esta medida foi introduzida por _Linton Freeman [[1]](http://dx.doi.org/10.2307%2F3033543) como uma forma de quantificar o controle de um humano na comunicação entre outros humanos.
 
 ````{r}
 betweenness <- betweenness(g, directed=TRUE)
@@ -74,19 +72,10 @@ which.max(betweenness)
 which.min(betweenness)
 ````
 
-
-A _reciprocity_ de um usuário é calculado como $R(x) = \frac{|Out(x) \in In(x)|}{|Out(x)|}$ onde $Out(x)$ é o conjunto de usuários que o usuário $x$ segue e $In(x)$ é o conjunto de usuários que segue $x$. _Reciprocity_ mede a probabilidade de um usuário ser seguido por usuários que ele segue.
+A medida de _reciprocity_ define a proporção de conexões mútuas em um grafo direcionado.
 
 ````{r}
-# estah me retornando a reciprocity do grafo. 
-# ver como retornar o valor para cada usuário.
 reciprocity(g)
-````
-
-A _assortativity_ de um nodo é definido como a razão entre o (in/out) degree e a média do (in/out) degree dos seus vizinhos. Podemos calcular a _assortativity_ para quatro tipos de degree-degree correlação (i.e., in-in, in-out, out-in e out-out).
-
-````{r}
-assortativity.degree(g)
 ````
 
 Autoridades e hubs:

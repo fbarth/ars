@@ -1,0 +1,191 @@
+Análise de comunidades
+========================================================
+
+O objetivo deste documento é exemplificar o cálculo de atributos de redes sociais. Os exemplos foram implementados utilizando a linguagem de programação *R* e o pacote *igraph* (http://igraph.org/r/doc/).
+
+```{r}
+library(igraph)
+relacoes <- read.csv('../data//relacoes.csv', sep=';')
+g <- graph.data.frame(relacoes, directed=TRUE)
+```
+
+O grafo didático criado possui a seguinte estrutura:
+
+```{r fig.width=7, fig.height=6}
+plot(g, layout=layout.kamada.kawai, edge.width=E(g)$weight, edge.color="black")
+```
+
+As comunidades deste grafo são:
+
+````{r}
+cl <- clusters(g)
+quantidade_clusters <- cl$no
+quantidade_clusters
+````
+
+````{r fig.width=7, fig.height=6}
+plot(g, layout=layout.kamada.kawai, 
+     edge.width=E(g)$width, 
+     edge.color="black", 
+     vertex.color=cl$membership)
+````
+
+Comunidade 1
+------------
+
+````{r}
+g_local <- induced.subgraph(g,V(g)[cl$membership==1])
+plot(g_local)
+````
+
+````{r}
+vcount(g_local)
+ecount(g_local)
+is.connected(g_local)
+````
+
+````{r}
+diam <- diameter(g_local)
+diam
+nodes <- farthest.nodes(g_local)
+nodes
+V(g_local)[nodes[1]]
+V(g_local)[nodes[2]]
+````
+
+````{r}
+degree(g_local, mode="in")
+degree(g_local, mode="out")
+degree(g_local, mode="all")
+betweenness(g_local, directed=TRUE)
+````
+
+````{r}
+reciprocity(g_local)
+````
+
+````{r}
+authority.score(g_local)$vector
+hub.score(g_local)$vector
+page.rank(g_local)$vector
+````
+
+Comunidade 2
+------------
+
+````{r}
+g_local <- induced.subgraph(g,V(g)[cl$membership==2])
+plot(g_local)
+````
+
+````{r}
+vcount(g_local)
+ecount(g_local)
+is.connected(g_local)
+````
+
+````{r}
+diam <- diameter(g_local)
+diam
+nodes <- farthest.nodes(g_local)
+nodes
+V(g_local)[nodes[1]]
+V(g_local)[nodes[2]]
+````
+
+````{r}
+degree(g_local, mode="in")
+degree(g_local, mode="out")
+degree(g_local, mode="all")
+betweenness(g_local, directed=TRUE)
+````
+
+````{r}
+reciprocity(g_local)
+````
+
+````{r}
+authority.score(g_local)$vector
+hub.score(g_local)$vector
+page.rank(g_local)$vector
+````
+
+Comunidade 3
+------------
+
+````{r}
+g_local <- induced.subgraph(g,V(g)[cl$membership==3])
+plot(g_local)
+````
+
+````{r}
+vcount(g_local)
+ecount(g_local)
+is.connected(g_local)
+````
+
+````{r}
+diam <- diameter(g_local)
+diam
+nodes <- farthest.nodes(g_local)
+nodes
+V(g_local)[nodes[1]]
+V(g_local)[nodes[2]]
+````
+
+````{r}
+degree(g_local, mode="in")
+degree(g_local, mode="out")
+degree(g_local, mode="all")
+betweenness(g_local, directed=TRUE)
+````
+
+````{r}
+reciprocity(g_local)
+````
+
+````{r}
+authority.score(g_local)$vector
+hub.score(g_local)$vector
+page.rank(g_local)$vector
+````
+
+Comunidade 4
+------------
+
+````{r}
+g_local <- induced.subgraph(g,V(g)[cl$membership==4])
+plot(g_local)
+````
+
+````{r}
+vcount(g_local)
+ecount(g_local)
+is.connected(g_local)
+````
+
+````{r}
+diam <- diameter(g_local)
+diam
+nodes <- farthest.nodes(g_local)
+nodes
+V(g_local)[nodes[1]]
+V(g_local)[nodes[2]]
+````
+
+````{r}
+degree(g_local, mode="in")
+degree(g_local, mode="out")
+degree(g_local, mode="all")
+betweenness(g_local, directed=TRUE)
+````
+
+````{r}
+reciprocity(g_local)
+````
+
+````{r}
+authority.score(g_local)$vector
+hub.score(g_local)$vector
+page.rank(g_local)$vector
+````
